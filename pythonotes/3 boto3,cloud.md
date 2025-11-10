@@ -49,16 +49,20 @@ region = ap-south-1
 
 #### **Step 3:** Initialize boto3
 
-```python
 import boto3
 
-# Create session (optional)
-session = boto3.Session(profile_name="default")
+# Create S3 client
+s3_client = boto3.client('s3')
 
-# Create clients/resources
-ec2 = boto3.client("ec2")
-s3 = boto3.resource("s3")
-```
+bucket_name = "devops-nishant-demo"
+
+# ---------- Upload file ----------
+s3_client.upload_file("backup.zip", bucket_name, "backup_2025.zip")
+print("✅ File uploaded successfully to S3")
+
+# ---------- Download file ----------
+s3_client.download_file(bucket_name, "backup_2025.zip", "restore.zip")
+print("✅ File downloaded successfully from S3")
 
 ✅ **DevOps Use Case:**
 Connect to AWS and use the same credentials for automation scripts and CI/CD pipelines.
